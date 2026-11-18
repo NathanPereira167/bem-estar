@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7fa">
+  <title>Bem-estar — Meu painel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" hidden>☰</button>
+    <a class="brand" href="#inicio" aria-label="Bem-estar, início"><span class="brand-mark">+</span> bem-estar</a>
+    <button id="return-to-entry" class="profile-link return-to-entry" type="button" hidden>Trocar visão</button>
+    <a id="quick-emergency-link" class="quick-emergency-link" href="#emergencia" hidden>Ajuda urgente · 192</a>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Ativar modo escuro" aria-pressed="false" title="Ativar modo escuro">☾</button>
+  </header>
+
+  <section id="access-screen" class="access-screen">
+    <p class="eyebrow">BEM-VINDO AO BEM-ESTAR</p>
+    <h1>Como você quer acessar?</h1>
+    <p class="access-intro">Escolha uma visão para conhecer o protótipo. Os perfis e registros disponíveis são fictícios.</p>
+    <div class="access-cards">
+      <section class="access-card">
+        <span class="access-icon" aria-hidden="true">♡</span><p class="eyebrow">ÁREA DO PACIENTE</p><h2>Acompanhe seu bem-estar</h2>
+        <p>Registre sintomas, consulte o histórico e prepare um resumo para uma conversa com um profissional.</p>
+        <label for="demo-profile-select">Perfil de demonstração</label>
+        <select id="demo-profile-select"><option value="ana">Ana Souza · paciente de teste</option><option value="lucas">Lucas Lima · paciente de teste</option></select>
+        <button id="enter-patient" class="button button-primary" type="button">Entrar como paciente <span aria-hidden="true">→</span></button>
+      </section>
+      <section class="access-card management-access">
+        <span class="access-icon" aria-hidden="true">⌘</span><p class="eyebrow">ÁREA DE GESTÃO</p><h2>Coordene o site</h2>
+        <p>Consulte fichas de demonstração, acompanhe relatos de sintomas e organize observações da coordenação.</p>
+        <div class="access-spacer"></div><button id="enter-management" class="button button-secondary" type="button">Entrar como gestão <span aria-hidden="true">→</span></button>
+      </section>
+    </div>
+    <p class="access-disclaimer"><strong>Protótipo acadêmico:</strong> estes acessos não usam senha nem servidor. Não insira dados reais de pacientes.</p>
+  </section>
+
+  <div id="workspace-shell" class="workspace-shell" hidden>
+    <aside id="patient-sidebar" class="sidebar" aria-label="Menu do paciente" hidden>
+      <p class="sidebar-heading">ÁREA DO PACIENTE</p>
+      <nav class="sidebar-nav" aria-label="Navegação do paciente">
+        <a href="#inicio"><span>⌂</span> Início</a><a href="#chat"><span>☏</span> Chat de apoio</a><a href="#registrar"><span>＋</span> Sintomas</a><a href="#historico"><span>◷</span> Histórico</a><a href="#guia"><span>⌕</span> Guia de saúde</a><a href="#favoritos"><span>♡</span> Favoritos</a><a href="#resumo"><span>▤</span> Resumo</a><a href="#consulta"><span>☷</span> Preparar consulta</a><a href="#compartilhamento"><span>↗</span> Compartilhamento</a><a href="#emergencia"><span>!</span> Ajuda urgente</a><a href="#ajuda"><span>?</span> Ajuda</a>
+      </nav>
+      <a class="sidebar-profile" href="#perfil" aria-label="Ver e editar perfil do paciente"><span id="patient-initials" class="patient-avatar">AS</span><span class="sidebar-profile-copy"><strong id="patient-name-label">Paciente</strong><small>Ver e editar perfil</small></span><span class="sidebar-profile-arrow" aria-hidden="true">›</span></a>
+    </aside>
+    <aside id="management-sidebar" class="sidebar" aria-label="Menu da gestão" hidden>
+      <p class="sidebar-heading">ÁREA DE GESTÃO</p>
+      <nav class="sidebar-nav" aria-label="Navegação da gestão">
+        <a href="#management-dashboard"><span>▦</span> Resumo do serviço</a>
+        <a href="#management-queue"><span>☷</span> Fila de relatos</a>
+        <a href="#management-patients"><span>♙</span> Pacientes</a>
+        <a href="#management-followups"><span>◷</span> Acompanhamentos</a>
+        <a href="#management-reports"><span>▥</span> Relatórios</a>
+        <a href="#management-content"><span>▤</span> Guia de saúde</a>
+      </nav>
+      <div class="sidebar-manager"><span class="manager-avatar">G</span><span><strong>Gestão</strong><small>Coordenação do site</small></span></div>
+    </aside>
+    <button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="Fechar menu" hidden></button>
+  <main id="app-shell">
+    <div id="patient-view" hidden>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">SEU PAINEL DE SAÚDE</p>
+        <h1>Olá, <span id="welcome-name">que bom ter você</span>!</h1>
+        <p class="hero-text">Aqui você pode organizar seus relatos e preparar informações para uma conversa com um profissional de saúde.</p>
+        <a class="button button-primary" href="#registrar">Registrar um sintoma <span aria-hidden="true">↓</span></a>
+        <div class="dashboard-stats"><div><strong id="record-count">0</strong><span>registros no histórico</span></div><div><strong id="last-record-date">—</strong><span>registro mais recente</span></div></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div><div class="art-card"><span class="heart">♥</span><span class="pulse-line"></span><small>um passo de cada vez</small></div>
+        <span class="spark spark-one">✳</span><span class="spark spark-two">✦</span>
+      </div>
+    </section>
+
+    <section class="notice" id="patient-notice" aria-label="Aviso importante">
+      <span class="notice-icon" aria-hidden="true">i</span>
+      <p><strong>Este app oferece apoio informativo, não atendimento médico.</strong> As orientações são gerais, não identificam a causa do sintoma nem substituem avaliação profissional. Em uma emergência, procure ajuda imediatamente.</p>
+    </section>
+
+    <section class="home-overview" id="home-overview" aria-label="Resumo e atalhos">
+      <div class="home-quick-grid">
+        <a class="home-quick-card" href="#registrar"><span class="quick-icon">＋</span><span><strong>Registrar sintoma</strong><small>Conte como você está se sentindo</small></span><b>→</b></a>
+        <a class="home-quick-card" href="#chat"><span class="quick-icon">☏</span><span><strong>Conversar sobre sintomas</strong><small>Organize seu relato em etapas</small></span><b>→</b></a>
+        <a class="home-quick-card" href="#guia"><span class="quick-icon">⌕</span><span><strong>Explorar o Guia</strong><small>Leia orientações dentro do site</small></span><b>→</b></a>
+      </div>
+      <div class="home-recent panel">
+        <div class="section-heading"><div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Seus registros recentes</h2></div><a class="text-link" href="#historico">Ver histórico →</a></div>
+        <div class="home-recent-content"><div id="home-recent-records" class="home-recent-list"></div><div class="week-summary"><span class="week-ring" aria-hidden="true">♡</span><strong id="weekly-record-count">0</strong><span>registros nos últimos 7 dias</span><small>Os números mostram apenas seus registros, não avaliam sua saúde.</small></div></div>
+      </div>
+    </section>
+
+    <section class="panel chat-panel" id="chat" aria-labelledby="chat-title">
+      <div class="section-heading"><div><p class="eyebrow">APOIO GUIADO · SEM DIAGNÓSTICO</p><h2 id="chat-title">Converse sobre o que está sentindo</h2></div><span class="heading-icon" aria-hidden="true">☏</span></div>
+      <div class="chat-privacy"><span aria-hidden="true">●</span> A conversa não é salva. Você escolhe se quer guardar o relato no histórico.</div>
+      <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-relevant="additions">
+        <div class="chat-message bot-message"><p>Oi! Me conte, em poucas palavras, o que está sentindo. Posso ajudar a organizar seu relato e mostrar orientações gerais revisadas. Não faço diagnósticos nem indico remédios.</p></div>
+      </div>
+      <div class="chat-quick-starts" id="chat-quick-starts"><span>Comece por um exemplo:</span><button type="button">Dor de cabeça</button><button type="button">Tosse</button><button type="button">Febre</button><button type="button">Diarreia</button></div>
+      <p class="chat-progress" id="chat-progress">Etapa 1 de 4 · conte o que está sentindo</p>
+      <div id="chat-choices" class="chat-choices" hidden></div>
+      <form id="chat-form" class="chat-form">
+        <label for="chat-input">Sua mensagem</label>
+        <div class="chat-input-row"><input id="chat-input" name="message" type="text" maxlength="240" placeholder="Escreva seu sintoma..." autocomplete="off" required><button class="button button-primary" type="submit">Enviar <span aria-hidden="true">→</span></button></div>
+      </form>
+      <button id="skip-chat-details" class="text-button chat-skip" type="button" hidden>Pular esta pergunta</button>
+      <div class="chat-end-actions" hidden><button id="save-chat-report" class="button button-primary" type="button">Salvar relato no histórico</button><button id="new-chat" class="text-button" type="button">Começar outra conversa</button></div>
+      <p class="chat-emergency"><strong>Se houver risco imediato:</strong> ligue para o serviço de emergência local. No Brasil, o SAMU atende pelo <a href="tel:192">192</a>.</p>
+    </section>
+
+    <section class="panel guide-panel" id="guia" aria-labelledby="guide-title">
+      <div class="section-heading"><div><p class="eyebrow">INFORMAÇÃO CONFIÁVEL</p><h2 id="guide-title">Guia de saúde</h2></div><span class="heading-icon" aria-hidden="true">⌕</span></div>
+      <p class="profile-intro">Pesquise e leia os resumos aqui mesmo. O guia não analisa seu caso nem identifica a causa de um sintoma.</p>
+      <label class="guide-search-label" for="guide-search">O que você quer pesquisar?</label>
+      <input id="guide-search" type="search" placeholder="Ex.: gripe, dor de cabeça" autocomplete="off">
+      <div class="guide-categories" aria-label="Temas populares"><span>Temas populares</span><button type="button" data-guide-search="febre">Febre</button><button type="button" data-guide-search="dor">Dores</button><button type="button" data-guide-search="diarreia">Digestão</button><button type="button" data-guide-search="tosse">Respiração</button></div>
+      <div class="guide-grid" id="guide-results">
+        <article class="guide-card" data-search="gripe influenza febre tosse dor garganta resfriado">
+          <div><span class="guide-category">MINISTÉRIO DA SAÚDE</span><h3>Gripe e sintomas respiratórios</h3><p>Cuidados simples para tosse e resfriado, e sinais que pedem atendimento.</p><div class="guide-detail" id="guide-flu" hidden><p>Febre, tosse, dor de garganta, dores no corpo e dor de cabeça podem aparecer na gripe, mas os sintomas sozinhos não confirmam a causa.</p><p><strong>O que pode ajudar:</strong> descanse e beba líquidos. Uma bebida morna com mel pode aliviar a tosse, mas não dê mel a crianças menores de 1 ano.</p><p><strong>Procure atendimento</strong> se os sintomas piorarem ou não melhorarem. Falta de ar ou dor no peito exige atendimento urgente; em emergência, ligue SAMU 192.</p><small>Fontes: Ministério da Saúde, “Gripe (influenza)”; NHS, “Respiratory tract infections” e “Common cold”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-flu">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="dor de cabeça cefaleia automedicação enxaqueca">
+          <div><span class="guide-category">BIBLIOTECA VIRTUAL EM SAÚDE · MS</span><h3>Dor de cabeça</h3><p>Hábitos que podem ajudar e sinais de alerta para não ignorar.</p><div class="guide-detail" id="guide-headache" hidden><p>Uma dor de cabeça pode ter diferentes causas; o sintoma sozinho não permite saber qual é. Anote quando começou, quanto dura, se volta e o que mais sente.</p><p><strong>Cuidados gerais:</strong> hidratação e sono adequado são hábitos úteis. Evite usar analgésicos com frequência por conta própria, pois isso pode piorar as dores.</p><p><strong>Procure urgência</strong> se a dor começar de repente e muito forte, ou vier com fraqueza, fala alterada, confusão, convulsão ou após uma pancada.</p><small>Fontes: Biblioteca Virtual em Saúde do Ministério da Saúde, “Dia Nacional de Combate à Cefaleia”; SAMU 192.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-headache">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="insolação golpe calor exposição sol vômitos primeiros socorros">
+          <div><span class="guide-category">MINISTÉRIO DA SAÚDE</span><h3>Suspeita de insolação</h3><p>O que fazer enquanto busca atendimento médico imediato.</p><div class="guide-detail" id="guide-heat" hidden><p>A insolação é séria e requer atendimento médico imediato. Se houver suspeita, peça ajuda para ir a um serviço de urgência; em caso de confusão, desmaio ou dificuldade para chegar, ligue SAMU 192.</p><p><strong>Enquanto a ajuda vem:</strong> leve a pessoa para local fresco, à sombra e ventilado; retire o excesso de roupas e resfrie a pele com água fresca ou panos úmidos.</p><small>Fonte: Ministério da Saúde, “Insolação” e “SAMU 192”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-heat">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="diarreia vômito vomito náusea enjoo desidratação soro">
+          <div><span class="guide-category">MINISTÉRIO DA SAÚDE</span><h3>Vômito e diarreia</h3><p>Hidratação, alimentação e sinais de desidratação.</p><div class="guide-detail" id="guide-stomach" hidden><p><strong>Hidrate-se:</strong> tome líquidos em pequenas quantidades e com frequência. O soro de reidratação oral pode ajudar a repor líquidos; prepare conforme as instruções da embalagem.</p><p>Mantenha a alimentação habitual conforme tolerar e evite refrigerantes. Procure atendimento se houver vômitos repetidos, sangue nas fezes, muita sede, pouca urina ou piora. Crianças e idosos têm maior risco de desidratação.</p><small>Fonte: Ministério da Saúde, “Doenças diarreicas agudas”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-stomach">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="queimadura pele água corrente primeiros socorros">
+          <div><span class="guide-category">BIBLIOTECA VIRTUAL EM SAÚDE · MS</span><h3>Queimadura leve</h3><p>Resfriamento correto e o que não passar na pele.</p><div class="guide-detail" id="guide-burn" hidden><p>Coloque a área sob água corrente fria, com jato suave, por cerca de 10 minutos. Não use gelo, pasta de dente, óleo ou receitas caseiras e não estoure bolhas.</p><p>Queimaduras extensas, profundas, químicas ou elétricas precisam de avaliação urgente. Se a roupa estiver grudada na pele, não tente arrancá-la.</p><small>Fontes: Biblioteca Virtual em Saúde do Ministério da Saúde, “Queimaduras”; Ministério da Saúde, “Primeiros cuidados em situações de queimaduras”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-burn">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="torção entorse tornozelo pulso inchaço">
+          <div><span class="guide-category">NHS · SERVIÇO NACIONAL DE SAÚDE</span><h3>Torção ou distensão</h3><p>Repouso inicial, gelo protegido e quando suspeitar de lesão séria.</p><div class="guide-detail" id="guide-sprain" hidden><p>Nos primeiros 2 a 3 dias, proteja e descanse a região. Aplique gelo envolto em um pano por até 20 minutos a cada 2–3 horas e mantenha a área elevada. Não coloque gelo diretamente na pele.</p><p>Procure atendimento se não conseguir apoiar o membro, a dor ou o inchaço forem fortes, houver deformidade, dormência ou a região ficar fria/azulada.</p><small>Fonte: NHS, “Sprains and strains”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-sprain">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="dor nas costas lombar coluna ciática ciatica">
+          <div><span class="guide-category">LINHA DE CUIDADO · MINISTÉRIO DA SAÚDE</span><h3>Dor na região lombar</h3><p>Movimento leve e sinais que precisam de avaliação.</p><div class="guide-detail" id="guide-back" hidden><p>Na maioria dos casos, dor lombar não significa um problema grave. Permanecer ativo dentro do que for tolerável costuma ser melhor do que ficar deitado por longos períodos; não force movimentos que piorem a dor.</p><p>Procure atendimento se houver fraqueza ou dormência nas pernas, dificuldade para controlar urina ou fezes, febre, queda/trauma, ou dor que impeça tarefas simples.</p><small>Fonte: Ministério da Saúde, Linha de Cuidado da Dor Lombar, “Sou paciente”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-back">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="febre temperatura alta calafrio dengue">
+          <div><span class="guide-category">NHS · SERVIÇO NACIONAL DE SAÚDE</span><h3>Febre em adultos</h3><p>Cuidados básicos e quando pedir avaliação.</p><div class="guide-detail" id="guide-fever" hidden><p>Descanse e beba líquidos para evitar desidratação. A febre pode ter várias causas, então observe também quando começou e que outros sintomas apareceram.</p><p>Procure uma unidade de saúde se não estiver melhorando ou se estiver piorando. Se houver dificuldade para respirar, confusão ou convulsão, é urgência: ligue SAMU 192. Esta orientação é para adultos; crianças pequenas precisam de avaliação apropriada à idade.</p><small>Fontes: NHS, “High temperature (fever) in adults”; Ministério da Saúde, SAMU 192.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-fever">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="dengue febre manchas dor corpo olhos vômito sangramento mosquito">
+          <div><span class="guide-category">MINISTÉRIO DA SAÚDE</span><h3>Suspeita de dengue</h3><p>Hidratação, avaliação e sinais de alarme.</p><div class="guide-detail" id="guide-dengue" hidden><p>Febre súbita com dor no corpo, dor de cabeça ou atrás dos olhos pode ocorrer na dengue, mas só uma avaliação pode orientar o caso. Procure uma unidade de saúde e não se automedique: alguns remédios comuns podem aumentar o risco de sangramento.</p><p><strong>Vá à urgência</strong> se aparecer dor abdominal forte, vômitos persistentes, sangramento, desmaio ou sonolência/irritabilidade intensa — inclusive quando a febre começar a baixar.</p><small>Fonte: Ministério da Saúde, “Dengue” e “Manejo Clínico da Dengue”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-dengue">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="menstruação cólica menstrual dor pélvica periodo">
+          <div><span class="guide-category">NHS · SERVIÇO NACIONAL DE SAÚDE</span><h3>Cólica menstrual</h3><p>Medidas simples para aliviar e sinais para investigar.</p><div class="guide-detail" id="guide-period" hidden><p>Calor morno protegido por um pano sobre o abdômen, banho morno, massagem leve ou atividade suave podem aliviar cólicas menstruais.</p><p>Procure uma unidade de saúde se a dor ficar mais forte, impedir suas atividades, ou se o fluxo ficar mais intenso/irregular. Dor pélvica muito forte ou diferente do habitual merece avaliação.</p><small>Fonte: NHS, “Period pain”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-period">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="prisão de ventre intestino constipação fezes">
+          <div><span class="guide-category">NHS · SERVIÇO NACIONAL DE SAÚDE</span><h3>Prisão de ventre</h3><p>Hábitos que podem ajudar o intestino a funcionar.</p><div class="guide-detail" id="guide-constipation" hidden><p>Aumente fibras aos poucos com frutas, verduras e cereais; beba líquidos e tente se movimentar diariamente, conforme sua condição permitir. Não adie a vontade de evacuar.</p><p>Se não melhorar, converse com um profissional ou farmacêutico antes de usar laxantes. Procure avaliação se o problema persistir ou vier acompanhado de dor forte, vômitos ou sangue.</p><small>Fonte: NHS, “Constipation”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-constipation">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="alergia urticária coceira inchaço lábios lingua anafilaxia">
+          <div><span class="guide-category">MINISTÉRIO DA SAÚDE · SAMU 192</span><h3>Reação alérgica</h3><p>Como reconhecer sinais de uma reação grave.</p><div class="guide-detail" id="guide-allergy" hidden><p>Coceira ou vermelhidão localizada podem acontecer em uma reação leve. Observe se os sintomas estão aumentando e evite nova exposição ao possível agente.</p><p><strong>Emergência:</strong> inchaço de língua/lábios ou garganta, dificuldade para respirar, desmaio ou sintomas em várias partes do corpo após contato com possível alérgeno. Ligue SAMU 192 imediatamente. Não espere para ver se passa.</p><small>Fontes: Ministério da Saúde, Protocolo SAMU 192 “Reação alérgica – Anafilaxia”; Biblioteca Virtual em Saúde, “Choque anafilático”.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-allergy">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="infecção urinária ardor urinar cistite xixi febre">
+          <div><span class="guide-category">SECRETARIA DA SAÚDE · SUS</span><h3>Ardor ao urinar</h3><p>Sintomas urinários precisam de avaliação, sem antibiótico por conta própria.</p><div class="guide-detail" id="guide-urinary" hidden><p>Ardor ao urinar, vontade frequente ou urgente de urinar podem ser sinais de infecção urinária. Procure uma UBS para avaliação; não use antibiótico que sobrou de outro tratamento.</p><p>Febre, calafrios, dor nas costas/lateral do corpo, náuseas ou vômitos junto desses sintomas pedem atendimento rápido. Gestantes devem buscar orientação de saúde prontamente.</p><small>Fontes: Secretaria da Saúde do Ceará, “Infecção urinária”; Ministério da Saúde, Protocolos da Atenção Básica – Saúde das Mulheres.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-urinary">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="picada inseto abelha escorpião aranha mosquito mordida">
+          <div><span class="guide-category">MINISTÉRIO DA SAÚDE</span><h3>Picada de inseto</h3><p>Diferencie incômodo local de sinais de intoxicação ou alergia.</p><div class="guide-detail" id="guide-bite" hidden><p>Uma reação pequena e localizada pode causar coceira e vermelhidão. Lave a região com água e sabão e acompanhe se está aumentando.</p><p>Picada de escorpião ou outro animal peçonhento precisa de atendimento rápido. Após qualquer picada, inchaço pelo corpo, vômitos, tontura ou dificuldade para respirar são sinais de urgência: ligue SAMU 192.</p><small>Fontes: Ministério da Saúde, “Animais peçonhentos” e protocolo SAMU 192.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-bite">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+        <article class="guide-card" data-search="usar guia fontes limites informação saúde">
+          <div><span class="guide-category">COMO ESTE GUIA FUNCIONA</span><h3>Fontes e limites</h3><p>Saiba como interpretar os resumos apresentados dentro do site.</p><div class="guide-detail" id="guide-limits" hidden><p>Os resumos são educativos e baseados em materiais de instituições públicas de saúde. Cada artigo identifica a instituição e a data em que o conteúdo foi conferido.</p><p>Não é possível garantir que uma informação geral se aplique ao seu caso. Este guia não faz diagnóstico, não indica tratamento e não substitui avaliação profissional.</p><small>Responsável pelo protótipo: equipe acadêmica.</small></div></div>
+          <button class="guide-open" type="button" aria-expanded="false" aria-controls="guide-limits">Ler no guia <span aria-hidden="true">⌄</span></button>
+        </article>
+      </div>
+      <p id="guide-empty" class="guide-empty" hidden>Nenhuma fonte encontrada para essa busca. Tente outro termo.</p>
+      <p class="guide-favorite-hint">Gostou de um resumo? Salve-o para encontrar rapidamente na área <a href="#favoritos">Favoritos</a>.</p>
+      <p class="guide-disclaimer">Todo o conteúdo acima é exibido dentro do site. Fontes institucionais e data de conferência aparecem em cada resumo.</p>
+    </section>
+
+    <section class="panel favorites-panel" id="favoritos" aria-labelledby="favorites-title" hidden>
+      <div class="section-heading"><div><p class="eyebrow">SEUS CONTEÚDOS GUARDADOS</p><h2 id="favorites-title">Guia favorito</h2></div><span class="heading-icon" aria-hidden="true">♡</span></div>
+      <p class="profile-intro">Guarde resumos do Guia para encontrá-los mais facilmente. Seus favoritos ficam somente neste navegador.</p>
+      <div id="favorites-list" class="saved-guide-list"></div>
+      <div id="favorites-empty" class="empty-state"><span aria-hidden="true">♡</span><p>Nenhum favorito por enquanto.</p><small>Abra o Guia de saúde e toque em “Salvar nos favoritos” em um tema que queira consultar depois.</small><a class="button button-primary" href="#guia">Explorar o Guia <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel form-panel" id="registrar">
+        <div class="section-heading"><div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Como você está se sentindo?</h2></div><span class="heading-icon" aria-hidden="true">✚</span></div>
+        <form id="symptom-form">
+          <label for="symptom">Sintoma</label>
+          <input id="symptom" name="symptom" type="text" placeholder="Ex.: dor de cabeça" maxlength="80" required>
+
+          <div class="field-row">
+            <div><label for="intensity">Intensidade</label><select id="intensity" name="intensity" required><option value="">Selecione</option><option value="Leve">Leve</option><option value="Moderada">Moderada</option><option value="Intensa">Intensa</option></select></div>
+            <div><label for="duration">Há quanto tempo?</label><input id="duration" name="duration" type="text" placeholder="Ex.: desde ontem" maxlength="50" required></div>
+          </div>
+          <label for="symptom-location">Onde você sente? <span class="optional">(opcional)</span></label>
+          <input id="symptom-location" name="location" type="text" maxlength="80" placeholder="Ex.: lado direito da cabeça, garganta">
+          <p class="field-hint">Se não souber descrever, pode deixar em branco.</p>
+          <label for="notes">Outros detalhes <span class="optional">(opcional)</span></label>
+          <textarea id="notes" name="notes" rows="3" maxlength="240" placeholder="Algo mais que você gostaria de lembrar?"></textarea>
+          <button class="button button-primary submit-button" type="submit">Salvar registro <span aria-hidden="true">→</span></button>
+          <p class="privacy-note"><span aria-hidden="true">▣</span> Seus registros ficam salvos somente neste dispositivo.</p>
+          <div class="form-example"><strong>Exemplo:</strong> “Dor de cabeça · leve · desde esta manhã · testa”. Evite incluir informações que não queira guardar.</div>
+        </form>
+        <section id="symptom-support" class="support-result" aria-live="polite" hidden>
+          <p class="eyebrow">APOIO PARA O SEU RELATO</p>
+          <h3 id="support-title"></h3>
+          <p id="support-message"></p>
+          <p id="support-next-step" class="support-next-step"></p>
+          <a id="call-samu" class="support-call" href="tel:192" hidden>SAMU 192 · em uma emergência</a>
+          <small id="support-source"></small>
+          <p class="support-disclaimer">Esta orientação é educativa e não é diagnóstico, prescrição ou consulta. O app não substitui um profissional de saúde.</p>
+        </section>
+        <div class="symptom-preview"><strong>Prévia do registro</strong><p id="symptom-preview-text">Preencha o sintoma, a intensidade e a duração para ver uma prévia.</p></div>
+      </section>
+
+      <section class="panel history-panel" id="historico" aria-labelledby="history-title">
+        <div class="section-heading"><div><p class="eyebrow">SEU HISTÓRICO</p><h2 id="history-title">Registros recentes</h2></div><span class="heading-icon history-icon" aria-hidden="true">◷</span></div>
+        <div class="history-tools"><label for="history-filter">Período</label><select id="history-filter"><option value="all">Todo o período</option><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option></select><label for="history-symptom-filter">Sintoma</label><select id="history-symptom-filter"><option value="all">Todos</option></select><button id="load-demo" class="text-button demo-button" type="button">Carregar dados fictícios</button></div>
+        <div class="history-insights"><div><span class="eyebrow">VISÃO DOS REGISTROS</span><strong id="history-result-count">0</strong><small>relatos neste filtro</small></div><div class="history-chart-wrap"><p>Intensidade relatada nos últimos registros</p><div id="history-chart" class="history-chart" aria-label="Gráfico de intensidade dos sintomas"></div><small>É apenas seu histórico; não é uma avaliação clínica.</small></div></div>
+        <div id="history-list" class="history-list" aria-live="polite"></div>
+        <div id="empty-state" class="empty-state"><span aria-hidden="true">♡</span><p>Seus registros aparecerão aqui.</p><small>Anotar como você se sente pode ajudar em uma conversa com um profissional.</small></div>
+        <button id="clear-history" class="text-button" type="button" hidden>Apagar todo o histórico</button>
+      </section>
+    </section>
+
+    <section class="panel summary-panel" id="resumo" aria-labelledby="summary-title">
+      <div class="section-heading"><div><p class="eyebrow">PARA LEVAR À CONSULTA</p><h2 id="summary-title">Resumo de saúde</h2></div><span class="heading-icon" aria-hidden="true">▤</span></div>
+      <p class="profile-intro">Organize seus registros e informações de saúde em uma página pronta para imprimir ou salvar como PDF.</p>
+      <div class="summary-readiness" id="summary-readiness"></div>
+      <div id="consultation-summary" class="consultation-summary" aria-live="polite"></div>
+      <div class="summary-actions"><a class="button button-secondary" href="#consulta">Preparar consulta <span aria-hidden="true">→</span></a><button id="print-summary" class="button button-primary" type="button">Imprimir ou salvar PDF <span aria-hidden="true">↗</span></button></div>
+      <p class="privacy-note">O resumo usa somente os dados guardados neste navegador.</p>
+    </section>
+
+    <section class="panel consult-prep-panel" id="consulta" aria-labelledby="consult-prep-title" hidden>
+      <div class="section-heading"><div><p class="eyebrow">ORGANIZE SUA CONVERSA</p><h2 id="consult-prep-title">Preparar consulta</h2></div><span class="heading-icon" aria-hidden="true">☷</span></div>
+      <p class="profile-intro">Use esta área para lembrar o que deseja contar ou perguntar. Ela organiza suas anotações, mas não substitui uma consulta.</p>
+      <div class="prep-overview" id="prep-overview"></div>
+      <div class="prep-layout">
+        <section class="prep-checklist"><h3>Antes da conversa, pense em:</h3><label><input type="checkbox" data-prep-check="start"> Quando o sintoma começou e como mudou</label><label><input type="checkbox" data-prep-check="other"> Outros sintomas que apareceram juntos</label><label><input type="checkbox" data-prep-check="meds"> Medicamentos e alergias que quero mencionar</label><label><input type="checkbox" data-prep-check="questions"> Perguntas que quero fazer</label><p>Marcar estes itens é opcional. Leve somente informações que se sentir confortável em compartilhar.</p></section>
+        <section class="prep-questions"><h3>Minhas perguntas e anotações</h3><form id="question-form"><label for="question-input">Adicionar lembrete ou pergunta</label><div class="question-entry"><input id="question-input" maxlength="160" placeholder="Ex.: O que pode estar piorando este sintoma?" required><button class="button button-primary" type="submit">Adicionar</button></div></form><ul id="question-list" class="question-list"></ul><p id="question-empty" class="summary-empty">Ainda não há lembretes. Adicione um para não esquecer.</p><p class="privacy-note">Suas anotações ficam neste navegador. Não são enviadas a um profissional.</p></section>
+      </div>
+      <div class="prep-footer"><a class="text-link" href="#resumo">Ver meu resumo →</a><a class="text-link" href="#perfil">Revisar meu perfil →</a></div>
+    </section>
+
+    <section class="panel profile-panel" id="perfil" aria-labelledby="profile-title">
+      <div class="section-heading"><div><p class="eyebrow">SEUS DADOS</p><h2 id="profile-title">Perfil de saúde</h2></div><span class="heading-icon" aria-hidden="true">♙</span></div>
+      <p class="profile-intro">Preencha o que quiser para deixar suas informações organizadas. Você pode editar ou apagar tudo depois.</p>
+      <div id="profile-completion" class="profile-completion"></div>
+      <div class="prototype-warning"><strong>Protótipo acadêmico:</strong> os dados ficam somente neste navegador, sem login seguro ou servidor. Use informações fictícias durante a demonstração.</div>
+      <form id="profile-form">
+        <div class="profile-fields">
+          <div class="profile-field"><label for="full-name">Nome completo</label><input id="full-name" name="fullName" autocomplete="name" maxlength="100" placeholder="Como podemos chamar você?" required></div>
+          <div class="profile-field"><label for="birth-date">Data de nascimento <span class="optional">(opcional)</span></label><input id="birth-date" name="birthDate" type="date" autocomplete="bday"></div>
+          <div class="profile-field"><label for="profile-email">E-mail</label><input id="profile-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="voce@email.com" required></div>
+          <div class="profile-field"><label for="profile-phone">Telefone <span class="optional">(opcional)</span></label><input id="profile-phone" name="phone" type="tel" autocomplete="tel" maxlength="25" placeholder="(00) 00000-0000"></div>
+          <div class="profile-field"><label for="emergency-name">Contato de emergência <span class="optional">(opcional)</span></label><input id="emergency-name" name="emergencyName" maxlength="100" placeholder="Nome da pessoa"></div>
+          <div class="profile-field"><label for="emergency-phone">Telefone do contato <span class="optional">(opcional)</span></label><input id="emergency-phone" name="emergencyPhone" type="tel" maxlength="25" placeholder="(00) 00000-0000"></div>
+          <div class="profile-wide address-heading"><h3>Endereço <span class="optional">(opcional)</span></h3><p>Em versões futuras, essa informação pode ajudar a encontrar serviços de saúde da sua região. Este MVP ainda não usa seu endereço para buscar locais.</p></div>
+          <div class="profile-field"><label for="profile-cep">CEP</label><input id="profile-cep" name="postalCode" autocomplete="postal-code" maxlength="9" placeholder="00000-000"></div>
+          <div class="profile-field"><label for="profile-street">Rua ou avenida</label><input id="profile-street" name="street" autocomplete="address-line1" maxlength="120" placeholder="Nome da rua ou avenida"></div>
+          <div class="profile-field"><label for="profile-number">Número</label><input id="profile-number" name="streetNumber" maxlength="15" placeholder="Número"></div>
+          <div class="profile-field"><label for="profile-complement">Complemento <span class="optional">(opcional)</span></label><input id="profile-complement" name="addressComplement" autocomplete="address-line2" maxlength="80" placeholder="Apto, bloco, casa..."></div>
+          <div class="profile-field"><label for="profile-neighborhood">Bairro</label><input id="profile-neighborhood" name="neighborhood" autocomplete="address-level3" maxlength="80" placeholder="Bairro"></div>
+          <div class="profile-field"><label for="profile-city">Cidade</label><input id="profile-city" name="city" autocomplete="address-level2" maxlength="80" placeholder="Cidade"></div>
+          <div class="profile-field"><label for="profile-state">Estado</label><input id="profile-state" name="state" autocomplete="address-level1" maxlength="50" placeholder="Ex.: SP"></div>
+          <div class="profile-field profile-wide"><label for="allergies">Alergias conhecidas <span class="optional">(opcional)</span></label><textarea id="allergies" name="allergies" rows="2" maxlength="300" placeholder="Se não souber ou não tiver, deixe em branco"></textarea></div>
+          <div class="profile-field profile-wide"><label for="medications">Medicamentos em uso <span class="optional">(opcional)</span></label><textarea id="medications" name="medications" rows="2" maxlength="300" placeholder="Anote nomes, se desejar. Não inclua doses se não tiver certeza."></textarea></div>
+          <div class="profile-field profile-wide"><label for="conditions">Condições de saúde importantes <span class="optional">(opcional)</span></label><textarea id="conditions" name="conditions" rows="2" maxlength="300" placeholder="Informação que você considera importante compartilhar com um profissional"></textarea></div>
+        </div>
+        <label class="consent-row"><input id="profile-consent" type="checkbox" required><span>Entendi que estes dados ficam salvos neste navegador e aceito armazená-los neste dispositivo.</span></label>
+        <div class="profile-actions"><button class="button button-primary" type="submit">Salvar perfil <span aria-hidden="true">→</span></button><button id="delete-profile" class="text-button" type="button">Apagar dados do perfil</button></div>
+      </form>
+    </section>
+
+    <section class="panel sharing-panel" id="compartilhamento" aria-labelledby="sharing-title">
+      <div class="section-heading"><div><p class="eyebrow">VOCÊ CONTROLA O ACESSO</p><h2 id="sharing-title">Compartilhar com um profissional</h2></div><span class="heading-icon" aria-hidden="true">↗</span></div>
+      <p class="profile-intro">Escolha quem poderia consultar seus dados, quais informações estariam incluídas e por quanto tempo. Você pode revogar o acesso.</p>
+      <div class="prototype-warning"><strong>Simulação acadêmica:</strong> nada é enviado a médicos ou hospitais. As permissões ficam apenas neste navegador e não protegem dados como um sistema real.</div>
+      <form id="sharing-form" class="sharing-form">
+        <label for="sharing-professional">Profissional de demonstração</label>
+        <select id="sharing-professional" required><option value="clinica-escola">Dra. Camila Nunes · Clínica Escola (fictícia)</option><option value="ubs-modelo">Dr. André Lima · UBS Modelo (fictícia)</option></select>
+        <fieldset class="sharing-scopes"><legend>Escolha o que deseja incluir</legend>
+          <label><input type="checkbox" name="share-scope" value="contact"> Dados básicos de contato: nome, telefone e cidade</label>
+          <label><input type="checkbox" name="share-scope" value="health"> Informações de saúde: alergias, medicamentos e condições informadas</label>
+          <label><input type="checkbox" name="share-scope" value="records"> Relatos de sintomas: intensidade, duração, data e observações</label>
+        </fieldset>
+        <label for="sharing-duration">A autorização de demonstração vale por</label>
+        <select id="sharing-duration"><option value="7">7 dias</option><option value="14">14 dias</option><option value="30">30 dias</option></select>
+        <label class="consent-row sharing-consent"><input id="sharing-consent" type="checkbox" required><span>Autorizo esta simulação de compartilhamento com o profissional fictício selecionado e entendi quais dados escolhi incluir.</span></label>
+        <button class="button button-primary" type="submit">Simular autorização</button>
+      </form>
+      <section class="sharing-access-section" aria-labelledby="sharing-access-title"><h3 id="sharing-access-title">Acessos autorizados neste dispositivo</h3><div id="sharing-access-list" class="sharing-access-list" aria-live="polite"></div></section>
+      <section id="professional-preview" class="professional-preview" aria-live="polite" hidden></section>
+      <section class="sharing-activity-section"><h3>Histórico da demonstração</h3><ol id="sharing-activity" class="sharing-activity"></ol></section>
+      <p class="privacy-note">Em um serviço real, profissionais precisariam de contas verificadas, acesso protegido e registro de consulta aos dados. Consentimento e outras bases legais aplicáveis devem ser definidos pelo serviço responsável.</p>
+    </section>
+
+    <section class="panel help-panel" id="ajuda" aria-labelledby="help-title">
+      <div class="section-heading"><div><p class="eyebrow">PODEMOS AJUDAR</p><h2 id="help-title">Como usar o painel</h2></div><span class="heading-icon" aria-hidden="true">?</span></div>
+      <div class="help-grid">
+        <a class="help-card" href="#perfil"><span>01</span><div><h3>Preencha seu perfil</h3><p>Adicione seus dados básicos e, se quiser, informações que ajudem a organizar sua conversa com um profissional.</p></div><b aria-hidden="true">→</b></a>
+        <a class="help-card" href="#registrar"><span>02</span><div><h3>Registre como está se sentindo</h3><p>Informe o sintoma, a intensidade e há quanto tempo percebeu. Você pode incluir outros detalhes.</p></div><b aria-hidden="true">→</b></a>
+        <a class="help-card" href="#historico"><span>03</span><div><h3>Consulte seu histórico</h3><p>Filtre por período, apague registros e use dados fictícios para conhecer o protótipo.</p></div><b aria-hidden="true">→</b></a>
+        <a class="help-card" href="#resumo"><span>04</span><div><h3>Prepare um resumo</h3><p>Imprima ou salve seus registros em PDF para levar as informações a uma consulta.</p></div><b aria-hidden="true">→</b></a>
+        <a class="help-card" href="#favoritos"><span>05</span><div><h3>Guarde um tema do Guia</h3><p>Salve resumos nos Favoritos para encontrá-los rapidamente neste dispositivo.</p></div><b aria-hidden="true">→</b></a>
+        <a class="help-card" href="#consulta"><span>06</span><div><h3>Prepare suas perguntas</h3><p>Crie lembretes e consulte seus registros antes de uma conversa com um profissional.</p></div><b aria-hidden="true">→</b></a>
+      </div>
+      <div class="help-faq"><h3>Perguntas frequentes</h3><details><summary>Meus dados são enviados para um hospital?</summary><p>Não. Neste protótipo, as informações ficam no armazenamento local deste navegador e não são compartilhadas com hospital ou profissional.</p></details><details><summary>Um profissional recebe os dados quando autorizo?</summary><p>Não neste protótipo. O compartilhamento é uma simulação local para a apresentação. Um serviço real precisaria de profissionais autenticados e controles seguros de acesso.</p></details><details><summary>O chat consegue dizer o que eu tenho?</summary><p>Não. O chat organiza o relato e apresenta algumas orientações gerais revisadas. Ele não faz diagnóstico, não prescreve e pode não reconhecer todos os sintomas.</p></details><details><summary>Posso usar para decidir se devo ir ao médico?</summary><p>Não use o site para descartar atendimento. Se os sintomas piorarem, forem intensos ou preocuparem você, procure uma unidade de saúde. Em emergência, ligue SAMU 192.</p></details><details><summary>Como apago meus dados?</summary><p>Você pode apagar registros no Histórico e os dados de saúde no Perfil. Como eles ficam neste navegador, apagar dados do navegador também pode removê-los.</p></details></div>
+      <p class="help-note"><strong>Ajuda com o site:</strong> consulte as instruções acima ou fale com a pessoa responsável pela apresentação.</p>
+      <p class="help-note"><strong>Precisa de atendimento?</strong> Este site apenas organiza informações e não avalia sintomas. Em caso de risco imediato, procure um serviço de emergência.</p>
+    </section>
+
+    <section class="panel emergency-panel" id="emergencia" aria-labelledby="emergency-title">
+      <div class="section-heading"><div><p class="eyebrow">AJUDA IMEDIATA</p><h2 id="emergency-title">Pode ser uma emergência?</h2></div><span class="emergency-symbol" aria-hidden="true">!</span></div>
+      <p class="emergency-intro">Este site não consegue avaliar nem acompanhar uma emergência. Se você ou alguém perto estiver em risco imediato, não espere uma resposta do site.</p>
+      <a class="emergency-call-button" href="tel:192"><span aria-hidden="true">☎</span> Ligar para o SAMU · 192</a>
+      <p class="emergency-source">O botão abre o discador do aparelho. O site não envia chamados nem aciona ambulâncias.</p>
+      <p class="emergency-real-use"><strong>Use somente em uma emergência real.</strong> Não ligue para testar: chamadas indevidas podem atrasar o socorro de quem precisa.</p>
+      <p class="emergency-list-title">O Ministério da Saúde orienta acionar o SAMU em situações como:</p>
+      <ul class="emergency-signs"><li>dificuldade importante para respirar ou outro problema cardiorrespiratório;</li><li>dor súbita no peito ou sinais de AVC, como alteração repentina na fala ou perda de força;</li><li>convulsão, desmaio ou perda de consciência;</li><li>acidente ou trauma grave, afogamento ou choque elétrico.</li></ul>
+      <p class="emergency-instruction">Ligue 192 e informe o que está acontecendo e onde a pessoa está. A equipe do serviço de emergência orientará os próximos passos.</p>
+      <p class="emergency-source">Fonte consultada: Ministério da Saúde · SAMU 192. Conteúdo informativo; não substitui a avaliação do serviço de emergência.</p>
+    </section>
+
+    <section class="next-step" id="patient-next-step">
+      <div class="next-icon" aria-hidden="true">✿</div><div><p class="eyebrow">CUIDADO COM VOCÊ</p><h2>Seu relato é um bom começo.</h2><p>Leve suas anotações a um profissional de saúde para receber orientação adequada ao seu caso.</p></div>
+    </section>
+    </div>
+
+    <section id="management-view" hidden>
+      <div class="management-hero" id="management-dashboard"><div><p class="eyebrow">ÁREA DA COORDENAÇÃO · DEMONSTRAÇÃO</p><h1>Central de atendimento</h1><p>Consulte perfis fictícios, acompanhe relatos e organize o atendimento.</p></div><span class="management-badge">Visão da coordenação</span></div>
+      <div class="management-metrics" id="management-metrics"><article class="metric-card"><span>Pacientes de demonstração</span><strong id="demo-user-count">6</strong><small>Perfis fictícios</small></article><article class="metric-card"><span>Relatos registrados</span><strong id="demo-record-count">23</strong><small>Inclui relatos históricos de demonstração</small></article><article class="metric-card"><span>Relatos em aberto</span><strong id="manager-pending-count">0</strong><small>Novos e em acompanhamento</small></article></div>
+      <section class="management-overview" id="management-overview">
+        <section class="panel manager-shortcuts"><div class="section-heading"><div><p class="eyebrow">ROTINA DO SERVIÇO</p><h2>O que precisa de atenção?</h2></div></div><div class="manager-shortcut-grid">
+          <a href="#management-queue"><strong>Fila de relatos</strong><small><span id="manager-new-count">0</span> novos para conferir</small><b>Ver fila →</b></a>
+          <a href="#management-followups"><strong>Acompanhamentos</strong><small><span id="manager-followup-count">0</span> em andamento</small><b>Ver acompanhamentos →</b></a>
+          <a href="#management-patients"><strong>Fichas de pacientes</strong><small>Consulte perfil, contatos e relatos</small><b>Abrir pacientes →</b></a>
+        </div></section>
+        <div class="management-privacy"><strong>Área de demonstração</strong>Os perfis e relatos são fictícios. Este protótipo não tem autenticação hospitalar nem prontuário seguro; intensidade é informada pela pessoa e não representa triagem clínica.</div>
+        <section class="panel management-activity-panel"><div class="section-heading"><div><p class="eyebrow">REGISTRO DE AÇÕES</p><h2>Atividade recente da coordenação</h2></div><span class="heading-icon">◷</span></div><ol id="manager-activity-list" class="manager-activity-list" aria-live="polite"></ol><p class="manager-demo-note">Registro local da demonstração · usuário fictício “Coordenação”.</p></section>
+      </section>
+
+      <section class="panel management-panel management-queue" id="management-queue" hidden><div class="section-heading"><div><p class="eyebrow">RELATOS RECEBIDOS</p><h2>Fila de relatos</h2><p class="manager-intensity-note">Organizada por situação administrativa. Intensidade é informada pelo paciente e não é classificação clínica.</p></div><a class="text-link" href="#management-patients">Buscar pacientes →</a></div><div id="manager-recent-cases"></div></section>
+
+      <section class="panel management-panel" id="management-patients" hidden><div class="section-heading"><div><p class="eyebrow">CADASTRO E ACOMPANHAMENTO</p><h2>Pacientes de demonstração</h2></div><span class="heading-icon">♙</span></div><p class="profile-intro">Pesquise uma pessoa ou um sintoma; use os filtros para localizar relatos e abrir seu acompanhamento.</p><div class="manager-patient-tools"><div class="manager-filter-control"><label for="manager-patient-search">Paciente ou sintoma</label><input id="manager-patient-search" type="search" placeholder="Ex.: Ana, tosse, cidade..." autocomplete="off"></div><div class="manager-filter-control"><label for="manager-patient-intensity">Intensidade relatada</label><select id="manager-patient-intensity"><option value="all">Todas</option><option value="Leve">Leve</option><option value="Moderada">Moderada</option><option value="Intensa">Intensa</option></select></div><div class="manager-filter-control"><label for="manager-patient-period">Período do relato</label><select id="manager-patient-period"><option value="all">Todo o período</option><option value="today">Hoje</option><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option></select></div><div class="manager-filter-control"><label for="manager-patient-status">Situação</label><select id="manager-patient-status"><option value="all">Todas</option><option value="new">Novo</option><option value="in_progress">Em acompanhamento</option><option value="reviewed">Conferido</option></select></div></div><p id="manager-patient-count" class="manager-result-count"></p><div class="manager-patient-layout"><div id="manager-patient-list" class="manager-patient-list"></div><section id="manager-patient-detail" class="manager-patient-detail" aria-live="polite"><p class="summary-empty">Escolha um paciente para consultar a ficha.</p></section></div><p class="manager-demo-note">A coordenação vê os dados informados no perfil e nos relatos. As notas internas da coordenação são exclusivas desta visão de demonstração.</p></section>
+
+      <section class="panel management-panel" id="management-followups" hidden><div class="section-heading"><div><p class="eyebrow">RETORNOS E CONTATOS</p><h2>Acompanhamentos em andamento</h2></div><span class="heading-icon">◷</span></div><p class="profile-intro">Relatos marcados pela coordenação como “Em acompanhamento”. Use a ficha para registrar contatos e próximos passos. Esta lista não estima risco clínico.</p><p id="manager-followup-empty" class="summary-empty" hidden>Nenhum relato em acompanhamento agora. Abra a fila para iniciar um acompanhamento.</p><div id="manager-followup-list" class="manager-followup-list"></div></section>
+
+      <section class="panel management-panel" id="management-reports" hidden><div class="section-heading"><div><p class="eyebrow">RESUMO DOS REGISTROS FICTÍCIOS</p><h2>Relatórios do serviço</h2></div><span class="heading-icon">▥</span></div><p class="profile-intro">Visão agregada para a demonstração. Intensidade e sintomas são autorrelatados; estes números não medem a qualidade do serviço nem fazem avaliação clínica.</p><div id="manager-report-cards" class="manager-report-cards"></div><h3 class="manager-subheading">Temas mais registrados</h3><ol id="manager-symptom-summary" class="manager-symptom-summary"></ol><p class="manager-demo-note">Dados fictícios, armazenados neste navegador.</p></section>
+
+      <section class="panel management-panel" id="management-content" hidden><div class="section-heading"><div><p class="eyebrow">INFORMAÇÃO PARA ATENDIMENTO</p><h2>Guia de saúde</h2></div><span class="heading-icon">▤</span></div><p class="profile-intro">Consulte a lista de temas e as fontes usadas nos resumos. O conteúdo do protótipo precisa de validação profissional antes de qualquer uso real.</p><p id="management-guide-count" class="manager-result-count"></p><ul id="management-guide-topics" class="management-topic-list"></ul></section>
+    </section>
+  </main>
+  </div>
+
+  <footer id="app-footer"><a class="brand" href="#inicio"><span class="brand-mark">+</span> bem-estar</a><span>Projeto acadêmico · Informação não substitui atendimento profissional</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
